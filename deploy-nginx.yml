@@ -1,0 +1,41 @@
+---
+- name: Deploy Custom Nginx on K3d
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Appliquer la configuration Kubernetes
+      shell: |
+        kubectl apply -f - <<EOF
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: nginx-deployment
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: nginx-custom
+          template:
+            metadata:
+              labels:
+                app: nginx-custom
+            spec:
+              containers:
+              - name: nginx
+                image: mon-nginx-custom:v1
+                imagePullPolicy: Never
+                ports:
+                - containerPort: 80
+        ---
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: nginx-service
+        spec:
+          type: LoadBalancer
+          selector:
+            app: nginx-custom
+          ports:
+          - port: 80
+            targetPort: 80
+        EOF
