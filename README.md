@@ -91,6 +91,7 @@ Cet atelier, **noté sur 20 points**, est évalué sur la base du barème suivan
 
 ----------------------------------------------------
 Documentation pour la séquence 3 
+Partie sans automatisation pour comprendre :
 L'étape 1 : Installation du cluster Kubernetes K3d (Séquence 1)
 C'est expliqué dans la séquence 1 & 2. 
 
@@ -119,6 +120,11 @@ L'étape 7 :
 Pour obtenir votre URL cliquez sur l'onglet **[PORTS]** dans votre Codespace et rendez public votre port **8081** (Visibilité du port).
 Ouvrez l'URL dans votre navigateur. 
 
+Partie avec automatisation pour tester :
+Un fichier cleanEnv.sh a été créé pour nettoyer l'environnement afin de tester le fichier qui répond à l'exercice.
+Un fichier missionComplete.sh a été créé pour faire toutes les séquences afin de répondre à l'exercice. 
+Pour effectuer les deux fichiers il faut exécuter sur le terminal les deux commandes suivantes : 
+" ./cleanEnv.sh " et "./missionComplete.sh".
 
 
 
