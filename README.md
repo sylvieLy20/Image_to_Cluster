@@ -106,7 +106,7 @@ packer build image.pkr.hcl
 "
 
 L'étape 4 : Import de l'image dans K3d
-Avant qu'Ansible ne puisse déployer, le cluster doit connaître l'image. On fait donc l'import avec la commande suivante : " k3d image import mon-nginx-custom:v1 -c mon-cluster "
+Avant qu'Ansible ne puisse déployer, le cluster doit connaître l'image. On fait donc l'import avec la commande suivante : " k3d image import mon-nginx-custom:v1 -c lab "
 
 L'étape 5 : Déploiement du service dans K3d via Ansible
 Un fichier YAML "deploy-nginx.yml" a été créé pour le déploiement du service. 
