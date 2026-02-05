@@ -127,6 +127,72 @@ Pour effectuer les deux fichiers il faut exécuter sur le terminal les deux comm
 " ./cleanEnv.sh " et "./missionComplete.sh".
 
 
+🛠️ Guide Étape par Étape (Mode Manuel)
+Pour bien comprendre le mécanisme, suivez ces étapes dans l'ordre :
 
+1. Installation du Cluster K3d
+Référez-vous aux séquences 1 & 2 pour la création du cluster lab. Le cluster doit être opérationnel avant de continuer.
+
+2. Installation de Packer et Ansible
+Un script est à votre disposition pour installer rapidement les outils nécessaires.
+
+Bash
+chmod +x install_tools.sh
+./install_tools.sh
+3. Build de l'image customisée (Nginx + HTML)
+Nous utilisons Packer pour créer une image Docker contenant notre fichier index.html.
+
+Bash
+packer init image.pkr.hcl
+packer build image.pkr.hcl
+4. Import de l'image dans le Cluster
+Le cluster K3d étant local, il ne peut pas télécharger l'image depuis Internet. Il faut lui injecter manuellement :
+
+Bash
+k3d image import mon-nginx-custom:v1 -c lab
+5. Déploiement avec Ansible
+Le déploiement (Deployment et Service) est orchestré par Ansible pour garantir une configuration reproductible.
+
+Bash
+ansible-playbook deploy-nginx.yml
+6. Exposition de l'application (Port-Forward)
+Pour accéder à l'application depuis votre navigateur dans Codespaces, créez un tunnel réseau :
+
+Bash
+kubectl port-forward svc/nginx-service 8081:80 >/tmp/maison.log 2>&1 &
+7. Accès à l'application
+Cliquez sur l'onglet [PORTS] en bas de votre Codespace.
+
+Repérez le port 8081.
+
+Changez la visibilité en Public.
+
+Ouvrez l'URL générée.
+
+⚡ Mode Automatisé (Tests Rapides)
+Si vous souhaitez tester l'intégralité du processus ou réinitialiser votre environnement, utilisez les scripts d'automatisation.
+
+Nettoyage de l'environnement
+Supprime le cluster, les processus et les images pour repartir de zéro :
+
+Bash
+chmod +x cleanEnv.sh
+./cleanEnv.sh
+Exécution complète de la mission
+Lance toutes les séquences (installation, build, import, déploiement) automatiquement :
+
+Bash
+chmod +x missionComplete.sh
+./missionComplete.sh
+📂 Structure du Projet
+index.html : Votre page web personnalisée.
+
+image.pkr.hcl : Configuration Packer pour le build Docker.
+
+deploy-nginx.yml : Playbook Ansible pour le déploiement Kubernetes.
+
+install_tools.sh : Script d'installation des dépendances.
+
+cleanEnv.sh & missionComplete.sh : Scripts d'automatisation globale.
 
 
