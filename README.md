@@ -89,4 +89,38 @@ Cet atelier, **noté sur 20 points**, est évalué sur la base du barème suivan
 - Qualité du Readme (lisibilité, erreur, ...) (4 points)
 - Processus travail (quantité de commits, cohérence globale, interventions externes, ...) (4 points) 
 
+----------------------------------------------------
+Documentation pour la séquence 3 
+L'étape 1 : Installation du cluster Kubernetes K3d (Séquence 1)
+C'est expliqué dans la séquence 1 & 2. 
+
+L'étape 2 : Installation de Packer et Ansible
+On commence par installer les outils. Pour cela un fichier bash a été crée pour faciliter les installations : install_tools.sh.
+On lance juste le fichier bash avec la commande suivante : " ./install_tools.sh".
+
+L'étape 3 : Build de l'image customisée (Nginx + index.html)
+Avec builder Docker de Packer on va built l'image. Pour cela, un fichier "image.pkr.hcl" a été créé. Il suffit de l'exécuter maintenant avec les commandes suivantes pour built : 
+" 
+packer init image.pkr.hcl
+packer build image.pkr.hcl
+"
+
+L'étape 4 : Import de l'image dans K3d
+Avant qu'Ansible ne puisse déployer, le cluster doit connaître l'image. On fait donc l'import avec la commande suivante : " k3d image import mon-nginx-custom:v1 -c mon-cluster "
+
+L'étape 5 : Déploiement du service dans K3d via Ansible
+Un fichier YAML "deploy-nginx.yml" a été créé pour le déploiement du service. 
+Pour lancer le déploiement il suffit de lancer la commande suivante : " ansible-playbook deploy-nginx.yml"
+
+L'étape 6 : Portforward
+On lance la commande suivante : " kubectl port-forward svc/nginx-service 8081:80 >/tmp/maison.log 2>&1 &"
+
+L'étape 7 : 
+Pour obtenir votre URL cliquez sur l'onglet **[PORTS]** dans votre Codespace et rendez public votre port **8081** (Visibilité du port).
+Ouvrez l'URL dans votre navigateur. 
+
+
+
+
+
 
