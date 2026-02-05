@@ -113,7 +113,7 @@ Avant qu'Ansible ne puisse déployer, le cluster doit connaître l'image. On fai
 ## L'étape 5 : Déploiement du service dans K3d via Ansible
 Un fichier YAML "deploy-nginx.yml" a été créé pour le déploiement du service. 
 Pour lancer le déploiement il suffit de lancer la commande suivante : 
-``` ansible-playbook deploy-nginx.yml" ```
+``` ansible-playbook deploy-nginx.yml ```
 
 ## L'étape 6 : Portforward
 On lance la commande suivante : 
